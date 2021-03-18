@@ -4,7 +4,8 @@
 WEAPON_TYPES = ['F', 'K', 'H', 'S']
 WEAPON_ARMOR_STRENGTHS = ['C','B','A','S']
 
-def make_weapon(name, weapon_type, strength, description = "", details = None) -> dict:
+def make_weapon(name, weapon_type, strength, description = "", details = None,
+        special = None) -> dict:
     weapon = {}
     if not weapon_type in WEAPON_TYPES:
         raise(Exception("Invalid weapon type: {}".format(weapon_type)))
@@ -15,7 +16,17 @@ def make_weapon(name, weapon_type, strength, description = "", details = None) -
     weapon['strength'] = strength
     weapon['description'] = description
     weapon['details'] = details
+    if type(special) == list:
+        weapon['special'] = special
+    elif type(special) == dict:
+        weapon['special'] = [special]
+    elif special is None:
+        weapon['special'] = []
+    else:
+        msg = "type(special)={}; expected list, dict, or None"
+        raise Exception(msg.format(type(special)))
     return weapon
+
 
 ARMOR_TYPES = ['D', 'B', 'P', 'G']
 # D: enhanced dodge
@@ -23,7 +34,8 @@ ARMOR_TYPES = ['D', 'B', 'P', 'G']
 # P: enhanced parry
 # G: partial all around boost
 
-def make_armor(name, armor_type, strength, description = "", details = None) -> dict:
+def make_armor(name, armor_type, strength, description = "", details = None,
+        special = None) -> dict:
     armor = {}
     if not armor_type in ARMOR_TYPES:
         raise(Exception("Invalid armor type: {}".format(armor_type)))
@@ -34,7 +46,26 @@ def make_armor(name, armor_type, strength, description = "", details = None) -> 
     armor['strength'] = strength
     armor['description'] = description
     armor['details'] = details
+    if type(special) == list:
+        armor['special'] = special
+    elif type(special) == dict:
+        armor['special'] = [special]
+    elif special is None:
+        armor['special'] = []
+    else:
+        msg = "type(special)={}; expected list, dict, or None"
+        raise Exception(msg.format(type(special)))
     return armor
+
+def clone_equipment(eq):
+    if eq['type'] in ARMOR_TYPES:
+        return make_armor(eq['name'], eq['type'], eq['strength'],
+                eq['description'], eq['details'],
+                [s.copy() for s in eq['special']])
+    if eq['type'] in WEAPON_TYPES:
+        return make_weapon(eq['name'], eq['type'], eq['strength'],
+                eq['description'], eq['details'],
+                [s.copy() for s in eq['special']])
 
 def print_equipment(equipment : dict):
     equipment_type = "Weapon" if equipment['type'] in WEAPON_TYPES else "Armor"
@@ -46,7 +77,7 @@ def print_equipment(equipment : dict):
         )
         )
     print("Description: {}".format(equipment['description']))
-    print("Details: {}\n".format(equipment['details']))
+    print("Details: {}".format(equipment['details']))
 
 buster_sword = make_weapon("Buster Sword", "H", "A", "A large broadsword that has inherited the hopes of those who fight.")
 rapier = make_weapon("Rapier", "F", "C", "Better than an epee.")
@@ -72,4 +103,17 @@ def test_weapon_armor():
     test_make_weapon()
     test_make_armor()
 
-# test_weapon_armor()
+def test_clone_equipment():
+    fapier = clone_equipment(rapier)
+    fapier['name'] = "Fapier"
+    fapier['strength'] = "F"
+    fapier['description'] = 'A floppy sword entrusted with the hope of those who fap'
+    print_equipment(rapier)
+    print_equipment(fapier)
+    flate_mail = clone_equipment(plate_mail)
+    flate_mail['name'] = "Flate Mail" 
+    flate_mail['strength'] = "F" 
+    flate_mail['description'] = 'Looks like plate mail, but is just made of balloons'
+    print_equipment(plate_mail)
+    print_equipment(flate_mail)
+    print("OK!")
