@@ -21,7 +21,7 @@ import math
 # ===
 BASE_OFFSET = 10
 BASE_ATTACK_FACTOR = 1.2
-MAX_BASE_STACK = 20
+MAX_BASE_STACK = 35
 # should be an integer in [0,10] independent of MAX_BASE_STACK
 EFFECTIVE_BASE_STACK = 0 
 # added separately, so should be based on MAX_BASE_STACK
@@ -29,37 +29,37 @@ WEAPONTYPE_STACK = 0
 WEAPON_STRAIGHT_STACK = WEAPONTYPE_STACK * 0.25
 WEAPONCLASS_STACK = {
       'C': MAX_BASE_STACK * 0.0,
-      'B': MAX_BASE_STACK * 0.1,
-      'A': MAX_BASE_STACK * 0.2,
-      'S': MAX_BASE_STACK * 0.3,
+      'B': MAX_BASE_STACK * 0.4,
+      'A': MAX_BASE_STACK * 0.8,
+      'S': MAX_BASE_STACK * 1.2,
     }
 ARMORTYPE_STACK = MAX_BASE_STACK * 0.1 
 ARMOR_GUARD_STACK = ARMORTYPE_STACK * 0.5
 ARMORCLASS_STACK = {
-      'C': MAX_BASE_STACK * 0.05,
-      'B': MAX_BASE_STACK * 0.10,
-      'A': MAX_BASE_STACK * 0.15,
-      'S': MAX_BASE_STACK * 0.20,
+      'C': MAX_BASE_STACK * 0.00,
+      'B': MAX_BASE_STACK * 0.20,
+      'A': MAX_BASE_STACK * 0.55,
+      'S': MAX_BASE_STACK * 0.90,
     }
 
 # mult constant values (should default to 1)
 # ===
 BASE_EFFECTIVE_MULT = 1.25
 WEAPONTYPE_MULT = 1.5
-WEAPON_STRAIGHT_MULT = 1
+WEAPON_STRAIGHT_MULT = 1.15
 WEAPONCLASS_MULT = {
       'C': 1,
       'B': 1,
       'A': 1,
       'S': 1,
     }
-ARMORTYPE_MULT = 1
-ARMOR_GUARD_MULT = 1
+ARMORTYPE_MULT = 1/1.3
+ARMOR_GUARD_MULT = 1/1.05
 ARMORCLASS_MULT = {
-      'C': 1,
-      'B': 1,
-      'A': 1,
-      'S': 1,
+      'C': 1/1,
+      'B': 1/1,
+      'A': 1/1,
+      'S': 1/1,
     }
 
 # validation functions: return true or raise exceptions
@@ -204,7 +204,7 @@ def damage(attack_type : str, defense_type : str, attack_strength : int,
         )
   # damage =[ stuff to add ] * [ stuff to multiply ] - a hit will always cause 1 damage
   dmg = max(
-     math.floor(
+     math.ceil(
        (stack_base(attack_type, defense_type,
        attack_strength,defense_strength) +
        stack_weapontype(weapon_type, attack_type) +
