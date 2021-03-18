@@ -206,7 +206,7 @@ def damage(attack_type : str, defense_type : str, attack_strength : int,
   dmg = max(
      math.floor(
        (stack_base(attack_type, defense_type,
-       attack_strength, defense_strength) +
+       attack_strength,defense_strength) +
        stack_weapontype(weapon_type, attack_type) +
        stack_weaponclass(weapon_class) -
        stack_armortype(armor_type, defense_type) -
