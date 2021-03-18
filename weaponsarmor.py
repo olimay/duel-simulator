@@ -82,7 +82,6 @@ def print_equipment(equipment : dict):
 buster_sword = make_weapon("Buster Sword", "H", "A", "A large broadsword that has inherited the hopes of those who fight.")
 rapier = make_weapon("Rapier", "F", "C", "Better than an epee.")
 zxv_sword = make_weapon("The ZXV Sword", "S", "S", "The best.")
-
 plate_mail = make_armor("Plate Mail", "B", "A", "Very strong lol")
 fencing_gear = make_armor("Fencing Gear", "P", "B", "Keeps you agile")
 chocobo_suit = make_armor("Chocobo Suit", "D", "S", "Waark")
