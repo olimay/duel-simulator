@@ -1,4 +1,4 @@
-# duel.py
+# duel game model
 
 from cards import *
 from damage import *

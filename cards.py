@@ -1,4 +1,4 @@
-# cards.py
+# cards
 
 import random
 

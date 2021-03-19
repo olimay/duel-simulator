@@ -1,3 +1,5 @@
+# demo runner
+
 from duel import *
 from weaponsarmor import *
 import math

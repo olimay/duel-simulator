@@ -1,4 +1,3 @@
-# weapons-armor.py
 # weapons and armor
 
 WEAPON_TYPES = ['F', 'K', 'H', 'S']
