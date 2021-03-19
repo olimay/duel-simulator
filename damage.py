@@ -1,21 +1,4 @@
-# guidelines:
-# trying to go for the following:
-# 1. two consecutive successful attacks at full strength with the other player
-#    missing should win
-# 2. typical duel length should be 5-6 rounds
-# 3. if evenly matched with no particular strategy, each player wins about 35%
-#     of the time, and end up in a draw about 30% of the time
-# the following suggests that a "big" attack be ~60 and the base attack be ~30
-"""
->>> randomwalk.simulate(60,30,1000000)
-range = [2,113]
-greater than 10: 0.307808
-mean = 9.190085
-"""
-
 import math
-
-# here are some defaults that can be overwritten
 
 # stack constant values (positive numbers, default to 0)
 # ===
