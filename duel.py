@@ -5,12 +5,12 @@ from damage import *
 from player import *
 from weaponsarmor import *
 
-def make_duel(player_1 : dict, player_2 : dict, max_rounds = 10, deck = None):
+def make_duel(player_1 : dict, player_2 : dict, max_rounds = 10, order = 1, deck = None):
   # initializes a duel game model with the specified players
   # and specified maxiumum number of rounds
   d = {}
   d['round'] = 1
-  d['order'] = 1
+  d['order'] = order if order in [1,-1] else 1
   d['events'] = [] # empty array for active events
   d['phase'] = -1
   
@@ -165,6 +165,10 @@ def duel_select_events(d, p1_hand_index = None, p2_hand_index = None):
   d['events'] = []
   d['phase'] = 0
 
+def duel_run_events(d : dict, callbacks : dict):
+  # print("Warning: event system not implemented! Skipping events.")
+  pass
+
 
 def duel_select_attack_defense(d, attacker : int, a_card_i : int, d_card_i):
   # register an attack and defense, modify the player hp
@@ -291,10 +295,10 @@ def test_duel_select_attack_defense():
 def test_duel_new_round(n = 2) -> dict:
   plr_A = make_player("Bjoao Phranko")
   equip_weapon(plr_A, rapier) 
-  equip_armor(plr_A, fencing_gear)
+  equip_armor(plr_A, plate_mail)
   plr_B = make_player("Gatalina Eroszo")
-  equip_weapon(plr_B, rapier)
-  equip_armor(plr_B, plate_mail)
+  equip_weapon(plr_B, buster_sword)
+  equip_armor(plr_B, leather)
   # 
   d = make_duel(plr_A, plr_B)
   deck = d['deck']
@@ -340,56 +344,3 @@ def test_duel_new_round(n = 2) -> dict:
   return d
 
 
-
-
-# main duel loop
-# assumes that player 1 will go first
-def duel(player_a : dict, player_b : dict, max_cards = 8, max_rounds = 10) -> tuple:
-  outcome = 0
-  # copy over player info instead overwriting parameters
-  p1 = player_a
-  p2 = player_b
-  round = 0
-  deck = NULL
-  while not outcome or round_count < max_rounds:
-    # draw
-    p1['cards'], deck = draw_hands(p1['cards'], deck)
-    p2['cards'], deck = draw_hands(p2['cards'], deck)
-    # special
-
-    # attack/defense rounds
-    # p1 attacks p2
-    dmg, p1['cards']['attack'], p2['cards']['defense'] = attack_defend(
-        p1,
-        p2,
-        attack_cards,
-        defense_cards
-        )
-    p1['hp'] += dmg
-    p2['hp'] -= dmg
-
-    ## check win/loss
-    if hp2 <= 0:
-      # player 1 wins
-      outcome = 1
-      break
-
-    # p2 attacks p1
-    dmg, p2['cards']['attack'], p1['cards']['defense'] = attack_defend(
-        p2,
-        p1,
-        attack_cards,
-        defense_cards
-        )
-    hp1 += dmg
-    hp2 -= dmg
-
-    ## check win/loss
-    if hp1 <= 0:
-      # player 2 wins
-      outcome = 2
-
-    round += 1
-  if (round == max_rounds):
-    outcome = 0
-  return (outcome, p1, p2)
