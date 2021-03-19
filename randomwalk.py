@@ -1,8 +1,6 @@
 import random
 from statistics import mode, variance
 
-print("imported")
-
 def randomwalk(step_big, step_small, x_0 = 0, a = -100, b = 100):
   x = x_0
   rounds = 0
