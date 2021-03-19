@@ -336,7 +336,7 @@ def select_card_i(cards, subdeck = "attack"):
   response = ""
   options = [str(i) for i in range(1,len(card_lines)+1)]
   while not response in options:
-    response = input("Select a card (1-{}) ".format(len(card_lines)))
+    response = input("Select a card (1-{}) ".format(len(card_lines))).strip()
   return int(response)-1
 
 def select_action(p, action_type) -> int:
@@ -472,7 +472,7 @@ def test_hud2(col = 70):
   equip_armor(enemy,garmor)
   print(hud(you, enemy, col = col))
 
-def wyan_vs_gdragon():
+def wyan_vs_gdragon(debug = False) -> int:
 
   you = make_player("WYAN")
   wapier = clone_equipment(rapier)
@@ -505,5 +505,30 @@ def wyan_vs_gdragon():
   
   col = 70
   result = run_duel(you,enemy,order = 1, cpu_method = 0,
-      events = False, col = col, debug = True)
-   
+      events = False, col = col, debug = debug)
+  print()
+  x = input("[Press enter]")
+  return result
+
+def run_the_duels(debug = False):
+  scenarios = {
+      "WYAN vs Emperor Garbage Dragon (No events)" : wyan_vs_gdragon,
+      "Exit" : None
+      }
+  scenario_names = list(scenarios.keys())
+  options = [str(i) for i in range(1,len(scenarios)+1)]
+  choices = ["{}) {}".format(options[i], scenario_names[i]) for i in range(len(scenarios))]
+  menu = "Duel Simulator\n==============\n\n{}".format("\n".join(choices))
+  while (1):
+    response = None
+    while not response in options:
+      screen_clear()
+      print(menu)
+      response = input("Select a scenario (1-{}) ".format(len(scenarios)))
+      screen_clear()
+    selection = scenario_names[int(response)-1]
+    if selection == "Exit":
+      exit()
+    else:
+      f = scenarios[selection]
+      result = f(debug = debug)
