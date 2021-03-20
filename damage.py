@@ -12,24 +12,24 @@ WEAPONTYPE_STACK = 0
 WEAPON_STRAIGHT_STACK = WEAPONTYPE_STACK * 0.25
 WEAPONCLASS_STACK = {
       'C': MAX_BASE_STACK * 0.0,
-      'B': MAX_BASE_STACK * 0.3,
-      'A': MAX_BASE_STACK * 0.6,
-      'S': MAX_BASE_STACK * 0.9,
+      'B': MAX_BASE_STACK * 0.12,
+      'A': MAX_BASE_STACK * 0.24,
+      'S': MAX_BASE_STACK * 0.36,
     }
 ARMORTYPE_STACK = MAX_BASE_STACK * 0.1 
 ARMOR_GUARD_STACK = ARMORTYPE_STACK * 0.5
 ARMORCLASS_STACK = {
       'C': MAX_BASE_STACK * 0.00,
-      'B': MAX_BASE_STACK * 0.10,
-      'A': MAX_BASE_STACK * 0.20,
-      'S': MAX_BASE_STACK * 0.30,
+      'B': MAX_BASE_STACK * 0.06,
+      'A': MAX_BASE_STACK * 0.12,
+      'S': MAX_BASE_STACK * 0.18,
     }
 
 # mult constant values (should default to 1)
 # ===
 BASE_EFFECTIVE_MULT = 1.25
-WEAPONTYPE_MULT = 1.5
-WEAPON_STRAIGHT_MULT = 1.15
+WEAPONTYPE_MULT = 1.25
+WEAPON_STRAIGHT_MULT = 1.075
 WEAPONCLASS_MULT = {
       'C': 1,
       'B': 1,
@@ -40,9 +40,9 @@ ARMORTYPE_MULT = 1/1.3
 ARMOR_GUARD_MULT = 1/1.05
 ARMORCLASS_MULT = {
       'C': 1/1,
-      'B': 1/1.1,
-      'A': 1/1.2,
-      'S': 1/1.3,
+      'B': 1/1.05,
+      'A': 1/1.1,
+      'S': 1/1.15,
     }
 
 # validation functions: return true or raise exceptions
