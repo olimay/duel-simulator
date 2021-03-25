@@ -72,7 +72,6 @@ def valid_equipmentclass(equip_class):
     raise Exception("Invalid equipment class {}".format(equip_class))
   return True
 
-
 def valid_attack(attack_type):
   if not attack_type in ['S', 'T', 'L']:
     raise Exception("Invalid attack type {}".format(attack_type))
@@ -205,3 +204,30 @@ def damage(attack_type : str, defense_type : str, attack_strength : int,
      ),1)
   assert dmg >= 1, "calculated damage before counter {} < 1".format(dmg)
   return mult_negate(attack_type, defense_type) * dmg
+
+def test_damage():
+  a_types = ['S', 'T', 'L']
+  d_types = ['D', 'P', 'B']
+  wp_types = ['H', 'F', 'K', 'S']
+  ar_types = ['D', 'B', 'P', 'G']
+  ratings = ['C', 'B', 'A', 'S']
+  for wp in wp_types:
+    for wr in ratings:
+      print("Weapon {} {}".format(wp, wr))
+      for ar in ar_types:
+        for arr in ratings:
+          print("Armor Type: {}".format(ar, arr))
+          for a in a_types:
+            for d in d_types:
+              for a_s in range(1,10):
+                for d_s in range(1,10):
+                  dmg = damage(a, d, a_s, d_s, wp, wr, ar, arr)
+                  msg = "{}{} vs {}{} : {} damage".format(
+                      a,
+                      a_s,
+                      d,
+                      d_s,
+                      dmg
+                      )
+                  print(msg)
+
